@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConectaFamília</title>
+   
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+    <div class="notification" id="notification"></div>
+    
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">🏡 ConectaFamília</div>
+            
+            <!-- Botões de Emergência -->
+            <div class="emergency-section">
+                <div class="section-title">🚨 Emergência</div>
+                <button class="emergency-btn emergency-message" onclick="sendEmergencyMessage()">
+                    📧 Mensagem de Emergência
+                </button>
+                <button class="emergency-btn emergency-police" onclick="callPolice()">
+                    🚔 Chamar Polícia
+                </button>
+                <button class="emergency-btn emergency-alarm" onclick="activateAlarm()">
+                    🔊 Alarme Sonoro
+                </button>
+            </div>
+
+            <!-- Lista da Família -->
+            <div class="family-list">
+                <div class="section-title">👨‍👩‍👧‍👦 Família</div>
+                
+                <div class="family-member" onclick="openChat('Ana', 'Filha')">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGRjY5QjQiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0yMCAyMVYxOUE0IDQgMCAwIDAgMTYgMTVIOEE0IDQgMCAwIDAgNCAxOVYyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+Cjwvc3ZnPg==" alt="Ana" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Ana</div>
+                        <div class="member-status status-online">Online - Filha</div>
+                    </div>
+                </div>
+
+                <div class="family-member" onclick="openChat('Maria', 'Mãe')">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM5MzcwREIiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0yMCAyMVYxOUE0IDQgMCAwIDAgMTYgMTVIOEE0IDQgMCAwIDAgNCAxOVYyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+Cjwvc3ZnPg==" alt="Maria" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">Maria</div>
+                        <div class="member-status status-online">Online - Mãe</div>
+                    </div>
+                </div>
+
+                <div class="family-member" onclick="openChat('João', 'Pai')">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMxRTkwRkYiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0yMCAyMVYxOUE0IDQgMCAwIDAgMTYgMTVIOEE0IDQgMCAwIDAgNCAxOVYyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+Cjwvc3ZnPg==" alt="João" class="member-photo">
+                    <div class="member-info">
+                        <div class="member-name">João</div>
+                        <div class="member-status">Offline - Pai</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal - Mapa -->
+        <div class="map-container" onclick="enableMapInteraction(this)" onmouseleave="disableMapInteraction(this)"> 
+    <div class="map-overlay">
+        </div>
+    
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15834.234132736925!2d-34.84406984583193!3d-7.1769189347686915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7acc24864132573%3A0x837f988f2b8b40c3!2sMangabeira%2C%20Jo%C3%A3o%20Pessoa%20-%20PB!5e0!3m2!1spt-BR!2sbr!4v1758674843399!5m2!1spt-BR!2sbr&z=14&scrollwheel=false&zoomControl=false&disableDefaultUI=true" 
+        class="google-map" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    
+    </div>
+                
+                <!-- Ícones Fixos no Mapa -->
+                <div class="fixed-markers">
+
+                    <div class="fixed-marker pulse-animation" style="top: 55%; left: 65%;" onclick="openChat('Maria', 'Mãe')">
+                        <div class="marker-icon marker-mother">
+                            👩
+                            <div class="marker-label">Maria - No trabalho</div>
+                        </div>
+                    </div>
+
+                    <div class="fixed-marker" style="top: 45%; left: 75%;" onclick="showLocationDetails('Casa')">
+                        <div class="marker-icon marker-home">
+                            🏠
+                            <div class="marker-label">Casa da Família</div>
+                        </div>
+                    </div>
+
+                    <div class="fixed-marker" style="top: 75%; left: 25%;">
+                        <div class="marker-icon marker-father">
+                            👨
+                            <div class="marker-label">João - Offline</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-controls">
+                    <button class="map-btn" onclick="zoomIn()">➕</button>
+                    <button class="map-btn" onclick="zoomOut()">➖</button>
+                    <button class="map-btn" onclick="centerMap()">📍</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Chat -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-window">
+            <div class="chat-header">
+                <div class="chat-title" id="chatTitle">Chat com Ana</div>
+                <button class="chat-close" onclick="closeChat()">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message message-received">
+                    Oi! Estou na escola agora 📚
+                </div>
+                <div class="message message-sent">
+                    Que bom! Como está sendo o dia?
+                </div>
+                <div class="message message-received">
+                    Está tudo bem! A aula de matemática foi legal hoje 😊
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Digite sua mensagem..." onkeypress="handleChatKeyPress(event)">
+                <button class="chat-send" onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
